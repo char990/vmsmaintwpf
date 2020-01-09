@@ -1,0 +1,21 @@
+﻿<Window x:Class="VMSMaintWpf.ProtocolWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VMSMaintWpf"
+        mc:Ignorable="d"
+        Title="Protocol Stream Data" Height="480" Width="640"  Closing="Window_Closing"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" x:Name="tbProtocol" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <CheckBox x:Name="chkPtToEnd" VerticalAlignment="Center" >Scroll to end</CheckBox>
+            <Button x:Name="btnPtClearData" VerticalAlignment="Center" Margin="50,0,0,0" Click="btnPtClearData_Click">Clear Data</Button>
+        </StackPanel>
+    </Grid>
+</Window>

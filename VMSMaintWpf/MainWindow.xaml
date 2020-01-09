@@ -1,0 +1,359 @@
+﻿<Window x:Class="VMSMaintWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VMSMaintWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Closing="Window_Closing">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button x:Name="btnShowSign" Margin="0,0,20,0" Click="ShowSign_Click">Show Sign</Button>
+            <Button x:Name="btnProtocolMonitor" Margin="0,0,20,0" Click="ProtocolMonitor_Click">Protocol Monitor</Button>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" x:Name="lblRootName" Content="Root Name" Background="LightGray"/>
+                <ListView x:Name="lstController"  Grid.Column="1" Grid.Row="1" >
+                </ListView>
+            </Grid>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="5" Background="Gray"/>
+            <Grid Grid.Column="2">
+                <TabControl>
+                    <TabItem x:Name="tabStatus" Header="Status">
+                        <Grid x:Name="gridStatus">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Row="0" Grid.Column="0" x:Name="btnRefreshStatus" Click="btnRefreshStatus_Click" >Refesh Status</Button>
+                            <Label Grid.Row="0" Grid.Column="1" Content="&#x2190; Click the button to refresh status"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="Online status:"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbStOnline"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Application error:"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbStAppError"/>
+                            <Label Grid.Row="3" Grid.Column="0" Content="Controller RTC:"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbStCtrllerRtc"/>
+                            <Label Grid.Row="4" Grid.Column="0" Content="Hardware checksum:"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbStHdwChk"/>
+                            <Label Grid.Row="5" Grid.Column="0" Content="Controller Error Code:"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbStCtrlerError"/>
+                            <Label Grid.Row="6" Grid.Column="0" Content="Manufacturer code:"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" x:Name="tbStMfcCode"/>
+                            <Label Grid.Row="7" Grid.Column="0" Content="Number of signs:"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" x:Name="tbStSigns"/>
+                            <GroupBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2">
+                                <GroupBox.Header>
+                                    <ComboBox x:Name="cbStSigns" Width="60" SelectionChanged="cbStSigns_SelectionChanged">
+                                        <ComboBoxItem IsSelected="True" >1</ComboBoxItem>
+                                    </ComboBox>
+                                </GroupBox.Header>
+                                <Grid x:Name="gridSign">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="26"/>
+                                        <RowDefinition Height="26"/>
+                                        <RowDefinition Height="26"/>
+                                        <RowDefinition Height="26"/>
+                                        <RowDefinition Height="26"/>
+                                        <RowDefinition Height="26"/>
+                                        <RowDefinition Height="26"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Sign error code:"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="tbStSignErrCode"/>
+                                    <Label Grid.Row="0" Grid.Column="2" Content="Sign En/Disabled:"/>
+                                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="tbStSignEnDis"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Frame Id:"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbStFrmId"/>
+                                    <Label Grid.Row="1" Grid.Column="2" Content="Frame Revision:"/>
+                                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="tbStFrmRev"/>
+                                    <Label Grid.Row="2" Grid.Column="0" Content="Message Id:"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbStMsgId"/>
+                                    <Label Grid.Row="2" Grid.Column="2" Content="Message Revision:"/>
+                                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="tbStMsgRev"/>
+                                    <Label Grid.Row="3" Grid.Column="0" Content="Plan Id:"/>
+                                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbStPlanId"/>
+                                    <Label Grid.Row="3" Grid.Column="2" Content="Plan Revision:"/>
+                                    <TextBox Grid.Row="3" Grid.Column="3" x:Name="tbStPlanRev"/>
+                                    <Label Grid.Row="4" Grid.Column="0" Content="Sign type:"/>
+                                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbStSignType"/>
+                                    <Label Grid.Row="4" Grid.Column="2" Content="Sign Dimension:"/>
+                                    <TextBox Grid.Row="4" Grid.Column="3" x:Name="tbSignDimension"/>
+                                    <Label Grid.Row="5" Grid.Column="0" Content="Dimming mode:"/>
+                                    <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbStDimmingMode"/>
+                                    <Label Grid.Row="5" Grid.Column="2" Content="Dimming level:"/>
+                                    <TextBox Grid.Row="5" Grid.Column="3" x:Name="tbStDimmingLvl"/>
+                                    <Label Grid.Row="6" Grid.Column="0" Content="LED status:"/>
+                                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" x:Name="tbStLedStatus"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Frame Setting">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="1" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbFrmFrameId" Width="60"/>
+                                <Label  Grid.Row="1" Grid.Column="2">Frame Rev:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="3" x:Name="tbFrmFrameRev" Width="60"/>
+                                <Label Grid.Row="1" Grid.Column="4" Margin="0,0,0,0">Frame type:</Label>
+                                <ComboBox Grid.Row="1" Grid.Column="5" x:Name="cbFrmFrameType" Width="160" HorizontalAlignment="Left" SelectionChanged="cbFrmFrameType_SelectionChanged">
+                                    <ComboBoxItem>Text Frame</ComboBoxItem>
+                                    <ComboBoxItem>Graphics Frame</ComboBoxItem>
+                                    <ComboBoxItem>High-Res Gfx Frame</ComboBoxItem>
+                                </ComboBox>
+                                <Label Grid.Row="3" Grid.Column="0" Margin="0,0,0,0">Colour:</Label>
+                                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbFrmColour" Width="60" DropDownClosed="cbFrmColour_DropDownClosed"/>
+                                <Label Grid.Row="3" Grid.Column="2" >Conspicuity:</Label>
+                                <ComboBox Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" x:Name="cbFrmConspicuity" Width="60"/>
+                                <Button Grid.Row="3" Grid.Column="5" HorizontalAlignment="Left" x:Name="btnFrmLoadImg" Height="30"  Width="80" Click="btnFrmLoadImg_Click">Load Image</Button>
+                                <Label Grid.Row="3" Grid.Column="4" x:Name="lblFrmFont" >Font:</Label>
+                                <ComboBox Grid.Row="3" Grid.Column="5" x:Name="cbFrmFont" Width="60" SelectionChanged="cbFrmFont_SelectionChanged" HorizontalAlignment="Left"/>
+                            </Grid>
+                            <Grid  Margin="10" x:Name="gridFrmFrameContent"/>
+                            <StackPanel Orientation="Horizontal" x:Name="spPalette">
+                                <WrapPanel x:Name="palette" Width="400"  HorizontalAlignment="Left"/>
+                                <Button x:Name="btnView" Height="24" PreviewMouseLeftButtonDown="btnView_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="btnView_PreviewMouseLeftButtonUp" >Show BMP</Button>
+                            </StackPanel>
+                            <StackPanel  Margin="0,10,0,10" Height="30" Orientation="Horizontal">
+                                <Button x:Name="btnGfxFrmGetFromCtrller" Width="120" Margin="50,0,0,0" Click="btnFrmGetFromCtrller_Click">Get from controller</Button>
+                                <Button x:Name="btnGfxFrmSetToCtrller"  Width="120"  Margin="50,0,0,0" Click="btnFrmSetToCtrller_Click">Set to controller</Button>
+                                <Button x:Name="btnGfxFrmDisp"  Width="120"  Margin="50,0,0,0" Click="btnFrmDisplayFrame_Click">Display Frame</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Message Setting">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="1" Grid.Column="0">Message ID:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbMsgId" Width="60"/>
+                                <Label  Grid.Row="1" Grid.Column="2">Message Rev:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="3" x:Name="tbMsgRev" Width="60"/>
+                                <Label  Grid.Row="1" Grid.Column="4">Transition time:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="5" x:Name="tbMsgTransTime" Width="60" HorizontalAlignment="Left"/>
+                                <Label Grid.Row="1" Grid.Column="5" Margin="60,0,0,0">x 0.01s</Label>
+                                <Label Grid.Row="3" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="3" Grid.Column="1" x:Name="tbMsgFrmId1" Width="60"/>
+                                <Label Grid.Row="3" Grid.Column="2">Frame On Time:</Label>
+                                <TextBox Grid.Row="3" Grid.Column="3" x:Name="tbMsgFrmOnTime1" Width="60"/>
+                                <Label Grid.Row="3" Grid.Column="4">x 0.1s</Label>
+                                <Label Grid.Row="5" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbMsgFrmId2" Width="60"/>
+                                <Label Grid.Row="5" Grid.Column="2">Frame On Time:</Label>
+                                <TextBox Grid.Row="5" Grid.Column="3" x:Name="tbMsgFrmOnTime2" Width="60"/>
+                                <Label Grid.Row="5" Grid.Column="4">x 0.1s</Label>
+                                <Label Grid.Row="7" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="7" Grid.Column="1" x:Name="tbMsgFrmId3" Width="60"/>
+                                <Label Grid.Row="7" Grid.Column="2">Frame On Time:</Label>
+                                <TextBox Grid.Row="7" Grid.Column="3" x:Name="tbMsgFrmOnTime3" Width="60"/>
+                                <Label Grid.Row="7" Grid.Column="4">x 0.1s</Label>
+                                <Label Grid.Row="9" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="9" Grid.Column="1" x:Name="tbMsgFrmId4" Width="60"/>
+                                <Label Grid.Row="9" Grid.Column="2">Frame On Time:</Label>
+                                <TextBox Grid.Row="9" Grid.Column="3" x:Name="tbMsgFrmOnTime4" Width="60"/>
+                                <Label Grid.Row="9" Grid.Column="4">x 0.1s</Label>
+                                <Label Grid.Row="11" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="11" Grid.Column="1" x:Name="tbMsgFrmId5" Width="60"/>
+                                <Label Grid.Row="11" Grid.Column="2">Frame On Time:</Label>
+                                <TextBox Grid.Row="11" Grid.Column="3" x:Name="tbMsgFrmOnTime5" Width="60"/>
+                                <Label Grid.Row="11" Grid.Column="4">x 0.1s</Label>
+                                <Label Grid.Row="13" Grid.Column="0">Frame ID:</Label>
+                                <TextBox Grid.Row="13" Grid.Column="1" x:Name="tbMsgFrmId6" Width="60"/>
+                                <Label Grid.Row="13" Grid.Column="2">Frame On Time:</Label>
+                                <TextBox Grid.Row="13" Grid.Column="3" x:Name="tbMsgFrmOnTime6" Width="60"/>
+                                <Label Grid.Row="13" Grid.Column="4">x 0.1s</Label>
+                            </Grid>
+                            <StackPanel Margin="0,10,0,10" Height="30" Orientation="Horizontal">
+                                <Button x:Name="btnMsgGetFromCtrller" Width="120" Margin="50,0,0,0" Click="btnMsgGetFromCtrller_Click">Get from controller</Button>
+                                <Button x:Name="btnMsgFrmSetToCtrller"  Width="120"  Margin="50,0,0,0" Click="btnMsgFrmSetToCtrller_Click">Set to controller</Button>
+                                <Button x:Name="btnMsgDisplay"  Width="120"  Margin="50,0,0,0" Click="btnMsgDisplay_Click">Display Msg</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Plan Setting">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="1" Grid.Column="0">Plan ID:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbPlanId" Width="60"/>
+                                <Label  Grid.Row="1" Grid.Column="2">Plan Rev:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="3" x:Name="tbPlanRev" Width="60"/>
+                                <Label  Grid.Row="3" Grid.Column="0">Week days:</Label>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" Orientation="Horizontal">
+                                    <CheckBox x:Name="cbSun" Content="Sun" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbMon" Content="Mon" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbTue" Content="Tue" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbWed" Content="Wed" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbThu" Content="Thu" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbFri" Content="Fri" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbSat" Content="Sat" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <ComboBox Grid.Row="5" Grid.Column="0" Margin="5,0,5,0" x:Name="cbPlanFrmMsg1">
+                                </ComboBox>
+                                <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbPlanFMId1" Width="60"/>
+                                <Label Grid.Row="5" Grid.Column="2">Start hh:mm</Label>
+                                <TextBox Grid.Row="5" Grid.Column="3" x:Name="tbPlanStartTime1" Width="60"/>
+                                <Label Grid.Row="5" Grid.Column="4">Stop hh:mm</Label>
+                                <TextBox Grid.Row="5" Grid.Column="5" x:Name="tbPlanStopTime1" Width="60"/>
+
+                                <ComboBox Grid.Row="7" Grid.Column="0" Margin="5,0,5,0" x:Name="cbPlanFrmMsg2" >
+                                </ComboBox>
+                                <TextBox Grid.Row="7" Grid.Column="1" x:Name="tbPlanFMId2" Width="60"/>
+                                <Label Grid.Row="7" Grid.Column="2">Start hh:mm</Label>
+                                <TextBox Grid.Row="7" Grid.Column="3" x:Name="tbPlanStartTime2" Width="60"/>
+                                <Label Grid.Row="7" Grid.Column="4">Stop hh:mm</Label>
+                                <TextBox Grid.Row="7" Grid.Column="5" x:Name="tbPlanStopTime2" Width="60"/>
+
+                                <ComboBox Grid.Row="9" Grid.Column="0" Margin="5,0,5,0" x:Name="cbPlanFrmMsg3" >
+                                </ComboBox>
+                                <TextBox Grid.Row="9" Grid.Column="1" x:Name="tbPlanFMId3" Width="60"/>
+                                <Label Grid.Row="9" Grid.Column="2">Start hh:mm</Label>
+                                <TextBox Grid.Row="9" Grid.Column="3" x:Name="tbPlanStartTime3" Width="60"/>
+                                <Label Grid.Row="9" Grid.Column="4">Stop hh:mm</Label>
+                                <TextBox Grid.Row="9" Grid.Column="5" x:Name="tbPlanStopTime3" Width="60"/>
+
+                                <ComboBox Grid.Row="11" Grid.Column="0" Margin="5,0,5,0" x:Name="cbPlanFrmMsg4" >
+                                </ComboBox>
+                                <TextBox Grid.Row="11" Grid.Column="1" x:Name="tbPlanFMId4" Width="60"/>
+                                <Label Grid.Row="11" Grid.Column="2">Start hh:mm</Label>
+                                <TextBox Grid.Row="11" Grid.Column="3" x:Name="tbPlanStartTime4" Width="60"/>
+                                <Label Grid.Row="11" Grid.Column="4">Stop hh:mm</Label>
+                                <TextBox Grid.Row="11" Grid.Column="5" x:Name="tbPlanStopTime4" Width="60"/>
+
+                                <ComboBox Grid.Row="13" Grid.Column="0" Margin="5,0,5,0" x:Name="cbPlanFrmMsg5" >
+                                </ComboBox>
+                                <TextBox Grid.Row="13" Grid.Column="1" x:Name="tbPlanFMId5" Width="60"/>
+                                <Label Grid.Row="13" Grid.Column="2">Start hh:mm</Label>
+                                <TextBox Grid.Row="13" Grid.Column="3" x:Name="tbPlanStartTime5" Width="60"/>
+                                <Label Grid.Row="13" Grid.Column="4">Stop hh:mm</Label>
+                                <TextBox Grid.Row="13" Grid.Column="5" x:Name="tbPlanStopTime5" Width="60"/>
+
+                                <ComboBox Grid.Row="15" Grid.Column="0" Margin="5,0,5,0" x:Name="cbPlanFrmMsg6" >
+                                </ComboBox>
+                                <TextBox Grid.Row="15" Grid.Column="1" x:Name="tbPlanFMId6" Width="60"/>
+                                <Label Grid.Row="15" Grid.Column="2">Start hh:mm</Label>
+                                <TextBox Grid.Row="15" Grid.Column="3" x:Name="tbPlanStartTime6" Width="60"/>
+                                <Label Grid.Row="15" Grid.Column="4">Stop hh:mm</Label>
+                                <TextBox Grid.Row="15" Grid.Column="5" x:Name="tbPlanStopTime6" Width="60"/>
+                            </Grid>
+                            <StackPanel Margin="0,10,0,10" Height="30" Orientation="Horizontal">
+                                <Button x:Name="btnPlanGetFromCtrller" Width="120" Margin="10,0,0,0" Click="btnPlanGetFromCtrller_Click">Get from controller</Button>
+                                <Button x:Name="btnPlanFrmSetToCtrller"  Width="120"  Margin="10,0,0,0" Click="btnPlanFrmSetToCtrller_Click" >Set to controller</Button>
+                                <Button x:Name="btnPlanEnable" Width="120" Margin="10,0,0,0" Click="btnEnDisPlan">Enable plan</Button>
+                                <Button x:Name="btnPlanDisable"  Width="120"  Margin="10,0,0,0" Click="btnEnDisPlan">Disable plan</Button>
+                            </StackPanel>
+                            <StackPanel Margin="0,10,0,10">
+                                <Button x:Name="btnReqEnabledPlans"  Width="140" Height="24" Margin="10,0,0,0" Click="btnReqEnabledPlans_Click" >Request Enabled Plans</Button>
+                                <TextBox x:Name="tbEnabledPlans"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Controller Settings" IsEnabled="False">
+                        
+                    </TabItem>
+                    <TabItem Header="FaultLog" IsEnabled="False">
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>
